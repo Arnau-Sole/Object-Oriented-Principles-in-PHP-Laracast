@@ -1,2 +1,14 @@
 <?php
-echo "Hola des de Codespaces 🚀";
+
+class Photo // Nouns
+{
+    public function convert() // Verbs
+    {
+
+    }
+
+    public function upscale() 
+    {
+
+    }
+}
