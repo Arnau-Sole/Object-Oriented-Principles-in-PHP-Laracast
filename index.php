@@ -1,14 +1,14 @@
 <?php
-
-class Photo // Nouns
+class Playlist
 {
-    public function convert() // Verbs
+    public $name; 
+
+    public function __construct($name) 
     {
-
-    }
-
-    public function upscale() 
-    {
-
+        $this->name = $name;
     }
 }
+
+$playlist = new Playlist('Depressing 90s');
+
+die(var_dump($playlist));
