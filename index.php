@@ -1,14 +1,27 @@
 <?php
 class Playlist
 {
-    public $name; 
-
-    public function __construct($name) 
+    public function __construct(public $name, public $songs) 
     {
         $this->name = $name;
+        $this->songs = $songs;
+    }
+
+    public function shuffle() 
+    {
+        shuffle($this->songs);
     }
 }
 
-$playlist = new Playlist('Depressing 90s');
+$playlist = [];
+
+$playlist[] = new Playlist('80s Headbangers', [
+    'Back in black',
+    'Are you ready',
+    'Hells bells',
+    'Highway to hell'
+]);
+
+$playlist[0]->shuffle();
 
 die(var_dump($playlist));
