@@ -1,27 +1,35 @@
 <?php
-class Playlist
+
+class Notification
 {
-    public function __construct(public $name, public $songs) 
+    public function __construct(public string $message)
     {
-        $this->name = $name;
-        $this->songs = $songs;
+
     }
 
-    public function shuffle() 
+    public function send() 
     {
-        shuffle($this->songs);
+        echo 'Show pop up flash message';
     }
 }
 
-$playlist = [];
+class EmailNotification extends Notification
+{
+    public function send() 
+    {
+        echo 'Fired off an email notification';
+    }
+}
 
-$playlist[] = new Playlist('80s Headbangers', [
-    'Back in black',
-    'Are you ready',
-    'Hells bells',
-    'Highway to hell'
-]);
+class OSNotification extends Notification
+{
+    public function send() 
+    {
+        echo 'Dispatch an OS-specific notification';
+    }
+}
 
-$playlist[0]->shuffle();
+$notification = new EmailNotification('Here is my notification');
+$notification->send();
 
-die(var_dump($playlist));
+
