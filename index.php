@@ -1,35 +1,43 @@
 <?php
+class User {}
 
-class Notification
+abstract class Achievement
 {
-    public function __construct(public string $message)
-    {
+    public function __construct(
+        public string $name, 
+        public string $description, 
+        public string $icon
+    ) {
 
     }
 
-    public function send() 
+    abstract public function qualifier(User $user);
+}
+
+class FirstPostAchievement extends Achievement
+{
+    public function qualifier(User $user) 
     {
-        echo 'Show pop up flash message';
+        //TODO
+    
+        //$user->posts()->count() > 0
+        return true;
     }
 }
 
-class EmailNotification extends Notification
+class TalkativeAchievement extends Achievement 
 {
-    public function send() 
-    {
-        echo 'Fired off an email notification';
+    public function qualifier(User $user) 
+    {    
+        //$user->comments()->count() > 300
+        return true;
     }
 }
 
-class OSNotification extends Notification
-{
-    public function send() 
-    {
-        echo 'Dispatch an OS-specific notification';
-    }
-}
+$firstPost = new FirstPostAchievement(
+    'First Post',
+    'Granted when you create your first post.',
+    'first-post.svg'
+);
 
-$notification = new EmailNotification('Here is my notification');
-$notification->send();
-
-
+echo $firstPost->qualifier(new User) ? 'They qualify' : 'They do not qualify';
