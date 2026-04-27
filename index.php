@@ -1,43 +1,66 @@
-<?php
-class User {}
+<?php 
 
-abstract class Achievement
+class Subscription 
 {
     public function __construct(
-        public string $name, 
-        public string $description, 
-        public string $icon
+        protected BillingPortal $billingPortal
     ) {
 
     }
 
-    abstract public function qualifier(User $user);
-}
-
-class FirstPostAchievement extends Achievement
-{
-    public function qualifier(User $user) 
+    public function create() 
     {
-        //TODO
-    
-        //$user->posts()->count() > 0
-        return true;
+        $this->billingPortal->getCustomer();
+    }
+
+    public function cancel() 
+    {
+        
+    }
+
+    public function swap(string $newPlan) 
+    {
+        
+    }
+
+    public function invoice() 
+    {
+        
     }
 }
 
-class TalkativeAchievement extends Achievement 
+interface BillingPortal
 {
-    public function qualifier(User $user) 
-    {    
-        //$user->comments()->count() > 300
-        return true;
+    public function getCustomer();
+    public function getSubscription();
+}
+
+class StripeBillingPortal implements BillingPortal
+{
+    public function getCustomer() 
+    {
+
+    }
+
+    public function getSubscription() 
+    {
+
     }
 }
 
-$firstPost = new FirstPostAchievement(
-    'First Post',
-    'Granted when you create your first post.',
-    'first-post.svg'
-);
+class BraintreeBillingPortal implements BillingPortal
+{
+    public function getCustomer() 
+    {
 
-echo $firstPost->qualifier(new User) ? 'They qualify' : 'They do not qualify';
+    }
+
+    public function getSubscription() 
+    {
+
+    }
+}
+
+$subscription = new Subscription(
+    new StripeBillingPortal()
+);
